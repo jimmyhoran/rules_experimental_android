@@ -1,9 +1,10 @@
-load("@rules_jvm_external//:defs.bzl", "artifact")
-load("@rules_experimental_android//:defs.bzl", "composer_instrumentation_test")
+load(
+    "@rules_experimental_android//:defs.bzl",
+    "marathon_android_test",
+)
 
-minSdkVersion = "21"
-
-targetSdkVersion = "26"
+MIN_SDK_VERSION = "24"
+TARGET_SDK_VERSION = "30"
 
 licenses(["notice"])  # Apache 2.0
 
@@ -24,8 +25,8 @@ android_binary(
     custom_package = "com.example.android.testing.espresso.CustomMatcherSample",
     manifest = "app/src/main/AppManifest.xml",
     manifest_values = {
-        "minSdkVersion": minSdkVersion,
-        "targetSdkVersion": targetSdkVersion,
+        "minSdkVersion": MIN_SDK_VERSION,
+        "targetSdkVersion": TARGET_SDK_VERSION,
     },
     deps = [":CustomMatcherSampleLib"],
 )
@@ -53,23 +54,13 @@ android_binary(
     instruments = ":CustomMatcherSample",
     manifest = "app/src/androidTest/AndroidManifest.xml",
     manifest_values = {
-        "minSdkVersion": minSdkVersion,
-        "targetSdkVersion": targetSdkVersion,
+        "minSdkVersion": MIN_SDK_VERSION,
+        "targetSdkVersion": TARGET_SDK_VERSION,
     },
     deps = [":CustomMatcherSampleTestLib"],
 )
 
-composer_instrumentation_test(
-    name = "CustomMatcherComposerTest",
-    test_apk = ":CustomMatcherSampleTest",
-    api_level = 26,
-    device_type = "pixel",
-    google_apis = True,
-)
-
-composer_instrumentation_test(
-    name = "CustomMatcherComposerTest_LocalDevice",
-    test_apk = ":CustomMatcherSampleTest",
-    device_type = "local",
-    tags = ["manual"]
+marathon_android_test(
+    name = "CustomMatcherTest",
+    test_app = ":CustomMatcherSampleTest",
 )
