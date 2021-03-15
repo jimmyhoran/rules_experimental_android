@@ -40,8 +40,8 @@ maven_install(
 #
 # This repository contains the supporting tools to run Android instrumentation tests,
 # like the emulator definitions (android_device) and the device broker/test runner.
-ATS_TAG = "83a200e741729882b9a97c7af7684d6726e9dfde"
-ATS_SHA256 = "c8cb2eee3360c9822f567fb5ce3c5c3531f91f185a10d181957ebd28c23554b8"
+ATS_TAG = "5cde56a04f38f9269501c56c161099da896b9eb3"
+ATS_SHA256 = "21bbc81ee733e97b2180915df623d59f6dafcf861578c5ebee8768f9415377a5"
 
 http_archive(
     name = "android_test_support",

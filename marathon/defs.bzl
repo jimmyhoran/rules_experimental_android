@@ -1,7 +1,7 @@
 def _marathon_android_test_impl(ctx):
     instr_info = ctx.attr.test_app[AndroidInstrumentationInfo]
-    app = instr_info.target_apk
-    test_app = instr_info.instrumentation_apk
+    app = instr_info.target.signed_apk
+    test_app = ctx.attr.test_app[ApkInfo].signed_apk
     marathonfile = ctx.actions.declare_file("Marathonfile")
 
     runfiles = ctx.runfiles(
@@ -67,7 +67,7 @@ marathon_android_test = rule(
             allow_files = True,
         ),
         "_marathon": attr.label(
-            default = "//third_party/marathon-0.4.0:bin/marathon",
+            default = "//third_party/marathon-0.7.0:bin/marathon",
             allow_single_file = True,
             executable = True,
             cfg = "host",
